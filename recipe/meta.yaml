@@ -1,4 +1,4 @@
-{% set version = "0.13.1" %}
+{% set version = "0.15.6" %}
 
 package:
   name: arrow
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/a/arrow/arrow-{{ version }}.tar.gz
-  sha256: 6f54d9f016c0b7811fac9fb8c2c7fa7421d80c54dbdd75ffb12913c55db60b8a
+  sha256: eb5d339f00072cc297d7de252a2e75f272085d1231a3723f1026d1fa91367118
 
 build:
   number: 0
@@ -19,25 +19,30 @@ requirements:
   run:
     - python
     - python-dateutil
-    - backports.functools_lru_cache  # [py2k]
+    - backports.functools_lru_cache >=1.2.1  # [py27]
 
 test:
   source_files:
     - tests
   requires:
-    - nose
-    - chai
-    - simplejson
+    - dateparser
+    - pip
+    - pytest >=4.6,<4.7.0a0  # [py27]
+    - pytest >=5.3,<5.4.0a0  # [not py27]
+    - pytest-cov
+    - pytest-mock
     - pytz
+    - simplejson
   commands:
-    - nosetests
+    - python -m pip check
+    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz"
 
 about:
   home: https://github.com/crsmithdev/arrow
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache
-  summary: 'Better dates & times for Python.'
+  summary: Better dates & times for Python
   description: |
     Arrow is a Python library that offers a sensible, human-friendly approach to
     creating, manipulating, formatting and converting dates, times, and timestamps.
@@ -46,7 +51,8 @@ about:
     scenarios. Simply put, it helps you work with dates and times with fewer
     imports and a lot less code.
   dev_url: https://github.com/crsmithdev/arrow
-  doc_url: http://arrow.readthedocs.org
+  doc_url: https://arrow.readthedocs.io
+  doc_source_url: https://github.com/crsmithdev/arrow/tree/master/docs
 
 extra:
   recipe-maintainers:
