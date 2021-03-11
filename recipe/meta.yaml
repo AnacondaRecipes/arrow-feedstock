@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   host:
@@ -18,7 +18,7 @@ requirements:
     - pip
   run:
     - python
-    - python-dateutil >=2.7.0
+    - python-dateutil
     - typing_extensions
 
 test:
