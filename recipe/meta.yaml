@@ -35,7 +35,7 @@ test:
     - simplejson
   commands:
     - python -m pip check
-    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz"
+    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz and not shift_kiritimati and not one_arg_dateparser_datetime"
 
 about:
   home: https://github.com/crsmithdev/arrow
