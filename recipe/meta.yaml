@@ -39,7 +39,8 @@ test:
     - simplejson
   commands:
     - python -m pip check
-    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz"
+    # 2022/4/5: skip tests on s390x as dateparser need to be updated
+    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz" # [not (linux and s390x)]
 
 about:
   home: https://github.com/crsmithdev/arrow
