@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: True  #[py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -20,7 +20,7 @@ requirements:
     - wheel
     - setuptools
   run:
-    - python >=3.6
+    - python
     - python-dateutil >=2.7.0
     - typing_extensions
 
