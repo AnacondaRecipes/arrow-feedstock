@@ -33,10 +33,10 @@ test:
     - pytest
     - pytest-cov
     - pytest-mock
-    - pytz
+    - pytz >=2021.1
     # the issue 'bad escape \d at position 7' started to happen after version 2022.3.15
     - regex <2022.3.15
-    - simplejson
+    - simplejson >=3.*
   commands:
     - python -m pip check
     # 2022/4/5: tests on s390x fail because dateparser requires tzlocal bit it's currently not available on s390x 
