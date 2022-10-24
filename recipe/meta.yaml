@@ -39,8 +39,7 @@ test:
     - simplejson >=3.*
   commands:
     - python -m pip check
-    # 2022/4/5: tests on s390x fail because dateparser requires tzlocal bit it's currently not available on s390x 
-    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz"
+    - cd tests && pytest --cov arrow
 
 about:
   home: https://github.com/crsmithdev/arrow
