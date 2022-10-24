@@ -47,6 +47,7 @@ about:
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache
+  license_url: https://github.com/arrow-py/arrow/blob/master/LICENSE
   summary: Better dates & times for Python
   description: |
     Arrow is a Python library that offers a sensible, human-friendly approach to
