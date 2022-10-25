@@ -43,7 +43,7 @@ test:
     - cd tests && pytest --cov arrow
 
 about:
-  home: https://github.com/crsmithdev/arrow
+  home: https://github.com/arrow-py/arrow
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache
@@ -56,9 +56,9 @@ about:
     and provides an intelligent module API that supports many common creation
     scenarios. Simply put, it helps you work with dates and times with fewer
     imports and a lot less code.
-  dev_url: https://github.com/crsmithdev/arrow
+  dev_url: https://github.com/arrow-py/arrow
   doc_url: https://arrow.readthedocs.io
-  doc_source_url: https://github.com/crsmithdev/arrow/tree/master/docs
+  doc_source_url: https://github.com/arrow-py/arrow/tree/master/docs
 
 extra:
   recipe-maintainers:
