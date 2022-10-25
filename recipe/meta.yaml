@@ -1,4 +1,4 @@
-{% set version = "1.2.2" %}
+{% set version = "1.2.3" %}
 
 package:
   name: arrow
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/a/arrow/arrow-{{ version }}.tar.gz
-  sha256: 05caf1fd3d9a11a1135b2b6f09887421153b94558e5ef4d090b567b47173ac2b
+  sha256: 3934b30ca1b9f292376d9db15b19446088d12ec58629bc3f0da28fd55fb633a1
 
 build:
   number: 0
-  noarch: python
+  skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -20,9 +20,9 @@ requirements:
     - wheel
     - setuptools
   run:
-    - python >=3.6
+    - python
     - python-dateutil >=2.7.0
-    - typing_extensions
+    - typing_extensions  # [py<38]
 
 test:
   source_files:
@@ -33,20 +33,21 @@ test:
     - pytest
     - pytest-cov
     - pytest-mock
-    - pytz
+    # Pin `pytz` to match upstream. Prevents chance for version mismatch with `python-dateutils`
+    - pytz ==2021.1
     # the issue 'bad escape \d at position 7' started to happen after version 2022.3.15
     - regex <2022.3.15
-    - simplejson
+    - simplejson >=3.*
   commands:
     - python -m pip check
-    # 2022/4/5: tests on s390x fail because dateparser requires tzlocal bit it's currently not available on s390x 
-    - cd tests && pytest --cov arrow -k "not parse_tz_name_zzz"
+    - cd tests && pytest --cov arrow
 
 about:
-  home: https://github.com/crsmithdev/arrow
+  home: https://github.com/arrow-py/arrow
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache
+  license_url: https://github.com/arrow-py/arrow/blob/master/LICENSE
   summary: Better dates & times for Python
   description: |
     Arrow is a Python library that offers a sensible, human-friendly approach to
@@ -55,9 +56,9 @@ about:
     and provides an intelligent module API that supports many common creation
     scenarios. Simply put, it helps you work with dates and times with fewer
     imports and a lot less code.
-  dev_url: https://github.com/crsmithdev/arrow
+  dev_url: https://github.com/arrow-py/arrow
   doc_url: https://arrow.readthedocs.io
-  doc_source_url: https://github.com/crsmithdev/arrow/tree/master/docs
+  doc_source_url: https://github.com/arrow-py/arrow/tree/master/docs
 
 extra:
   recipe-maintainers:
