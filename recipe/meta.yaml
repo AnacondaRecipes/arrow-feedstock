@@ -9,7 +9,7 @@ source:
   sha256: 3934b30ca1b9f292376d9db15b19446088d12ec58629bc3f0da28fd55fb633a1
 
 build:
-  number: 0
+  number: 1
   skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
@@ -35,8 +35,6 @@ test:
     - pytest-mock
     # Pin `pytz` to match upstream. Prevents chance for version mismatch with `python-dateutils`
     - pytz ==2021.1
-    # the issue 'bad escape \d at position 7' started to happen after version 2022.3.15
-    - regex <2022.3.15
     - simplejson >=3.*
   commands:
     - python -m pip check
