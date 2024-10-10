@@ -7,6 +7,9 @@ package:
 source:
   url: https://pypi.io/packages/source/a/arrow/arrow-{{ version }}.tar.gz
   sha256: d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85
+  patches:
+    # This should be able to be removed in the next release. 
+    - patches/01_remove_type_checker.txt
 
 build:
   number: 0
@@ -14,6 +17,9 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
+  build:
+    - m2-patch  # [win]
+    - patch  # [not win]
   host:
     - python
     - pip
@@ -23,7 +29,6 @@ requirements:
   run:
     - python
     - python-dateutil >=2.7.0
-    - types-python-dateutil >=2.8.10
 
 test:
   source_files:
