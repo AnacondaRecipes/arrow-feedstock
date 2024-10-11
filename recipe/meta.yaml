@@ -9,7 +9,7 @@ source:
   sha256: d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85
   patches:
     # This should be able to be removed in the next release. 
-    - patches/01_remove_type_checker.txt
+    - patches/01_remove_type_checker.patch
 
 build:
   number: 0
@@ -45,8 +45,8 @@ test:
     - pytz ==2021.1
     - simplejson ==3.*
   commands:
-    - python -m pip check
-    - cd tests && pytest --cov arrow
+    - pip check
+    - pytest --cov tests/arrow
 
 about:
   home: https://github.com/arrow-py/arrow
