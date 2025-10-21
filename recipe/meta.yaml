@@ -1,19 +1,19 @@
-{% set version = "1.3.0" %}
+{% set version = "1.4.0" %}
 
 package:
   name: arrow
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/a/arrow/arrow-{{ version }}.tar.gz
-  sha256: d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85
+  url: https://pypi.org/packages/source/a/arrow/arrow-{{ version }}.tar.gz
+  sha256: ed0cc050e98001b8779e84d461b0098c4ac597e88704a655582b21d116e526d7
   patches:
-    # This should be able to be removed in the next release. 
+    # This should be able to be removed in the next release.
     - patches/01_remove_type_checker.patch
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -23,12 +23,14 @@ requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools
     - flit-core >=3.2,<4
   run:
     - python
     - python-dateutil >=2.7.0
+    - backports.zoneinfo ==0.2.1  # [py<39]
+    - tzdata  # [py>=39]
+  run_constrained:
+    - backports.zoneinfo ==0.2.1
 
 test:
   imports:
