@@ -1,52 +1,46 @@
-{% set version = "1.3.0" %}
+{% set name = "arrow" %}
+{% set version = "1.4.0" %}
 
 package:
-  name: arrow
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/a/arrow/arrow-{{ version }}.tar.gz
-  sha256: d4540617648cb5f895730f1ad8c82a65f2dad0166f57b75f3ca54759c4d67a85
-  patches:
-    # This should be able to be removed in the next release. 
-    - patches/01_remove_type_checker.patch
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: ed0cc050e98001b8779e84d461b0098c4ac597e88704a655582b21d116e526d7
 
 build:
   number: 0
-  skip: True  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<38]
 
 requirements:
-  build:
-    - m2-patch  # [win]
-    - patch  # [not win]
   host:
     - python
     - pip
-    - wheel
-    - setuptools
     - flit-core >=3.2,<4
   run:
     - python
     - python-dateutil >=2.7.0
+    - backports.zoneinfo ==0.2.1  # [py<39]
+    - python-tzdata  # [py>=39]
 
 test:
-  imports:
-    - arrow
   source_files:
     - tests
+  imports:
+    - arrow
+  commands:
+    - pip check
+    - pytest -v tests
   requires:
     - dateparser ==1.*
     - pip
     - pytest
     - pytest-cov
     - pytest-mock
-    # Pin `pytz` to match upstream. Prevents chance for version mismatch with `python-dateutils`
-    - pytz ==2021.1
+    - pytz ==2025.2
     - simplejson ==3.*
-  commands:
-    - pip check
-    - pytest --cov tests/arrow
 
 about:
   home: https://github.com/arrow-py/arrow
